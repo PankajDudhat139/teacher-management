@@ -1,5 +1,6 @@
 export interface Teacher {
   id: string
+  avatarUrl: string
   name: string
   subject: string
   email: string
