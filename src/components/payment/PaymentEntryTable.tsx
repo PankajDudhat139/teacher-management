@@ -63,14 +63,14 @@ export default function PaymentEntryTable({
   return (
     <div className="mt-12">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold flex items-center gap-2">
-          <FaRupeeSign className="text-green-600" /> Payment Entries
+        <h2 className="text-xl font-bold flex items-center gap-2">
+          <FaRupeeSign className="text-blue-600" /> Payment Entries
         </h2>
         <button
           onClick={onAddEntry}
-          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-2"
+          className="cursor-pointer bg-blue-600 text-xs hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-2"
         >
-          <FaPlus size={16} />
+          <FaPlus size={14} />
           Add Entry
         </button>
       </div>
@@ -123,7 +123,7 @@ export default function PaymentEntryTable({
                         <span className="font-bold text-green-600">₹{entry.amount.toLocaleString()}</span>
                       </td>
                       <td className="py-4 px-4">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2" style={{ minWidth: "130px" }}>
                           <FaCalendarAlt className="text-gray-400" size={14} />
                           <span className={actualStatus === "overdue" ? "text-red-600 font-semibold" : ""}>
                             {formatDate(entry.dueDate)}
@@ -146,6 +146,7 @@ export default function PaymentEntryTable({
                             <button
                               onClick={() => onPayEntry(entry)}
                               className="cursor-pointer bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-3 py-1 rounded-lg font-semibold shadow transition active:scale-95 text-sm"
+                              style={{ minWidth: "90px" }}
                             >
                               Pay Now
                             </button>

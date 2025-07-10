@@ -12,7 +12,6 @@ import {
   FaPhone,
   FaBirthdayCake,
   FaMapMarkerAlt,
-  FaRupeeSign,
 } from "react-icons/fa";
 
 interface PaymentEntry {
@@ -83,19 +82,23 @@ export default function TeacherDetailPage() {
 
   const handleEditEntry = (entry: PaymentEntry) => {
     // For now, just show an alert. You can implement edit functionality
-    alert(`Edit functionality for ${entry.subject} - ₹${entry.amount} (Coming Soon)`);
+    alert(
+      `Edit functionality for ${entry.subject} - ₹${entry.amount} (Coming Soon)`
+    );
   };
 
   const handleDeleteEntry = (entryId: string) => {
     if (confirm("Are you sure you want to delete this payment entry?")) {
-      const updatedEntries = paymentEntries.filter(entry => entry.id !== entryId);
+      const updatedEntries = paymentEntries.filter(
+        (entry) => entry.id !== entryId
+      );
       savePaymentEntries(updatedEntries);
     }
   };
 
   const handlePaymentSuccess = () => {
     if (selectedEntry) {
-      const updatedEntries = paymentEntries.map(entry =>
+      const updatedEntries = paymentEntries.map((entry) =>
         entry.id === selectedEntry.id
           ? { ...entry, status: "paid" as const }
           : entry
@@ -108,18 +111,22 @@ export default function TeacherDetailPage() {
   if (!teacher) return <Loader />;
 
   const defaultSubjectFee = SUBJECT_FEES[teacher.subject] || 2000;
-  const paymentAmount = selectedEntry ? selectedEntry.amount : defaultSubjectFee;
-  const paymentSubject = selectedEntry ? selectedEntry.subject : teacher.subject;
+  const paymentAmount = selectedEntry
+    ? selectedEntry.amount
+    : defaultSubjectFee;
+  const paymentSubject = selectedEntry
+    ? selectedEntry.subject
+    : teacher.subject;
 
   return (
-    <div className="max-w-4xl mx-auto mt-12 bg-gradient-to-br from-blue-50 via-white to-blue-100 rounded-3xl shadow-2xl p-4 md:p-10 relative">
+    <div className="max-w-5xl mx-auto mt-12 bg-gradient-to-br from-blue-50 via-white to-blue-100 rounded-3xl shadow-2xl p-4 md:p-10 relative">
       <button
         onClick={() => router.push("/teachers")}
         className="cursor-pointer absolute top-6 left-6 bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-full font-semibold shadow transition"
       >
         ← Back
       </button>
-      
+
       <div className="flex flex-col md:flex-row items-center gap-10">
         <div className="flex-shrink-0">
           <div className="relative">
@@ -136,7 +143,7 @@ export default function TeacherDetailPage() {
             </span>
           </div>
         </div>
-        
+
         <div className="flex-1 w-full">
           <h1 className="text-2xl md:text-3xl font-extrabold text-blue-800 mb-2 flex items-center gap-2 capitalize">
             <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700">
@@ -145,7 +152,7 @@ export default function TeacherDetailPage() {
             {teacher.name}
           </h1>
           <p className="text-lg text-gray-500 mb-4">{teacher.subject}</p>
-          
+
           <div className="grid grid-cols-1 gap-4 text-gray-800">
             <div className="flex items-center gap-2">
               <FaEnvelope className="text-blue-500" />
@@ -172,7 +179,7 @@ export default function TeacherDetailPage() {
               <div>{teacher.address || "-"}</div>
             </div>
           </div>
-          
+
           <div className="mt-8 flex gap-4">
             <button
               onClick={() => router.push(`/teachers/edit/${teacher.id}`)}

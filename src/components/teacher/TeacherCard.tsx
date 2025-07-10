@@ -26,7 +26,7 @@ export default function TeacherCard({
           onClick={() =>
             (window.location.href = `/teachers/detail/${teacher.id}`)
           }
-          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-tr from-green-400 to-green-600 text-white shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-300 z-10"
+          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-white text-blue-500 shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 z-10"
           aria-label="View teacher"
         >
           <FaEye size={14} />
@@ -36,7 +36,7 @@ export default function TeacherCard({
           onClick={() =>
             (window.location.href = `/teachers/edit/${teacher.id}`)
           }
-          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 z-10"
+          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-white text-blue-500 shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 z-10"
           aria-label="Edit teacher"
         >
           <FaPen size={14} />
@@ -44,7 +44,7 @@ export default function TeacherCard({
         {/* Delete Button */}
         <button
           onClick={() => onDelete(teacher.id)}
-          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-tr from-red-400 to-red-600 text-white shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 z-10"
+          className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-full bg-white text-red-500 shadow-md hover:scale-110 hover:rotate-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 z-10"
           aria-label="Delete teacher"
         >
           <FaTrashAlt size={14} />

@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
-import { FaTimes, FaPlus, FaRupeeSign, FaBook, FaCalendarAlt, FaFileAlt } from "react-icons/fa";
+import {
+  FaTimes,
+  FaPlus,
+  FaRupeeSign,
+  FaBook,
+  FaCalendarAlt,
+  FaFileAlt,
+  FaMoneyBill,
+} from "react-icons/fa";
 
 interface PaymentEntry {
   id: string;
@@ -18,7 +26,16 @@ interface PaymentEntryDialogProps {
   teacherName: string;
 }
 
-const SUBJECTS = ["Math", "Science", "English", "History", "Geography", "Physics", "Chemistry", "Biology"];
+const SUBJECTS = [
+  "Math",
+  "Science",
+  "English",
+  "History",
+  "Geography",
+  "Physics",
+  "Chemistry",
+  "Biology",
+];
 
 export default function PaymentEntryDialog({
   isOpen,
@@ -60,7 +77,7 @@ export default function PaymentEntryDialog({
     }
 
     setLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       const newEntry = {
@@ -69,11 +86,11 @@ export default function PaymentEntryDialog({
         dueDate: formData.dueDate,
         description: formData.description,
       };
-      
+
       onAddEntry(newEntry);
       setLoading(false);
       setSuccess(true);
-      
+
       setTimeout(() => {
         handleClose();
       }, 1500);
@@ -89,7 +106,7 @@ export default function PaymentEntryDialog({
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (error) setError(null);
   };
 
@@ -97,7 +114,7 @@ export default function PaymentEntryDialog({
   const getTomorrowDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return tomorrow.toISOString().split("T")[0];
   };
 
   if (!isOpen) return null;
@@ -112,18 +129,20 @@ export default function PaymentEntryDialog({
         >
           <FaTimes size={22} />
         </button>
-        
+
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 mb-2 bg-blue-100 rounded-full flex items-center justify-center">
-            <FaPlus className="text-blue-600" size={24} />
+            <FaMoneyBill className="text-blue-600" size={24} />
           </div>
-          
-          <h2 className="text-2xl font-bold text-blue-800 mb-2">Add Payment Entry</h2>
+
+          <h2 className="text-2xl font-bold text-blue-800 mb-2">
+            Add Payment Entry
+          </h2>
           <p className="mb-6 text-gray-600 text-center">
             Create a new payment entry for{" "}
             <span className="font-semibold text-blue-700">{teacherName}</span>
           </p>
-          
+
           <div className="w-full">
             {error && (
               <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm flex items-center gap-2">
@@ -131,80 +150,99 @@ export default function PaymentEntryDialog({
                 {error}
               </div>
             )}
-            
+
             {success && (
               <div className="bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-4 text-sm flex items-center gap-2">
                 <FaPlus size={16} />
                 Payment entry added successfully!
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Subject Selection */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <FaBook className="text-blue-500" />
-                  Subject
-                </label>
-                <select
-                  className="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
-                  value={formData.subject}
-                  onChange={(e) => handleInputChange("subject", e.target.value)}
-                >
-                  <option value="">Select Subject</option>
-                  {SUBJECTS.map(subject => (
-                    <option key={subject} value={subject}>{subject}</option>
-                  ))}
-                </select>
+              <div
+                className="px-1 [&::-webkit-scrollbar]:w-1
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+                style={{ maxHeight: "calc(100vh - 375px)", overflowY: "auto" }}
+              >
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                    <FaBook className="text-blue-500" />
+                    Subject
+                  </label>
+                  <select
+                    className="w-full mb-3 border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
+                    value={formData.subject}
+                    onChange={(e) =>
+                      handleInputChange("subject", e.target.value)
+                    }
+                  >
+                    <option value="">Select Subject</option>
+                    {SUBJECTS.map((subject) => (
+                      <option key={subject} value={subject}>
+                        {subject}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Amount */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                    <FaRupeeSign className="text-blue-500" />
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    step="0.01"
+                    placeholder="Enter amount"
+                    className="w-full mb-3 border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
+                    value={formData.amount}
+                    onChange={(e) =>
+                      handleInputChange("amount", e.target.value)
+                    }
+                  />
+                </div>
+
+                {/* Due Date */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                    <FaCalendarAlt className="text-blue-500" />
+                    Due Date
+                  </label>
+                  <input
+                    type="date"
+                    min={getTomorrowDate()}
+                    className="w-full mb-3 border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
+                    value={formData.dueDate}
+                    onChange={(e) =>
+                      handleInputChange("dueDate", e.target.value)
+                    }
+                  />
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                    <FaFileAlt className="text-blue-500" />
+                    Description
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder="Enter payment description or notes"
+                    className="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg resize-none"
+                    value={formData.description}
+                    onChange={(e) =>
+                      handleInputChange("description", e.target.value)
+                    }
+                  />
+                </div>
               </div>
-              
-              {/* Amount */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <FaRupeeSign className="text-green-500" />
-                  Amount
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  step="0.01"
-                  placeholder="Enter amount"
-                  className="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
-                  value={formData.amount}
-                  onChange={(e) => handleInputChange("amount", e.target.value)}
-                />
-              </div>
-              
-              {/* Due Date */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <FaCalendarAlt className="text-purple-500" />
-                  Due Date
-                </label>
-                <input
-                  type="date"
-                  min={getTomorrowDate()}
-                  className="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
-                  value={formData.dueDate}
-                  onChange={(e) => handleInputChange("dueDate", e.target.value)}
-                />
-              </div>
-              
-              {/* Description */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <FaFileAlt className="text-orange-500" />
-                  Description
-                </label>
-                <textarea
-                  rows={3}
-                  placeholder="Enter payment description or notes"
-                  className="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg resize-none"
-                  value={formData.description}
-                  onChange={(e) => handleInputChange("description", e.target.value)}
-                />
-              </div>
-              
+
               {/* Action Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
@@ -225,7 +263,7 @@ export default function PaymentEntryDialog({
               </div>
             </form>
           </div>
-          
+
           <div className="mt-4 text-xs text-gray-400 text-center">
             Secure • Easy Management • Quick Setup
           </div>

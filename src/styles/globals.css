@@ -24,3 +24,12 @@ body {
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.sidemenu {
+    min-height: calc(100vh - 65px);
+}
+
+main {
+    max-height: calc(100vh - 65px);
+    overflow: auto;
+}

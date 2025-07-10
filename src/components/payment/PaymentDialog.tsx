@@ -57,7 +57,7 @@ export default function PaymentDialog({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 bg-opacity-40 mx-auto p-4 md:p-10">
       <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 w-full max-w-lg relative animate-fadeIn">
         <button
           className="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-gray-700"
