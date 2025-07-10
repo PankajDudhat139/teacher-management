@@ -6,19 +6,19 @@ import { ReactNode, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { FaChevronCircleRight, FaHome, FaUser, FaCog } from "react-icons/fa";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   { label: "Dashboard", href: "/", icon: <FaHome /> },
   { label: "Teachers", href: "/teachers", icon: <FaUser /> },
   { label: "Settings", href: "/settings", icon: <FaCog /> },
 ];
-
 function Sidebar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
-      {/* Overlay for mobile */}
       {/* Overlay for mobile */}
       <div
         className={`fixed inset-0 bg-gradient-to-br from-black/60 to-blue-900/40 z-40 transition-opacity duration-300 md:hidden ${
@@ -42,19 +42,34 @@ function Sidebar() {
             <FiX size={28} className="text-blue-700" />
           </button>
         </div>
-        <nav className="p-6 space-y-3">
-          {menuItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition group"
-            >
-              <span className="text-xl text-blue-600 group-hover:text-blue-700">
-                {item.icon}
-              </span>
-              {item.label}
-            </Link>
-          ))}
+        <nav className="flex flex-col gap-1 p-4">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={[
+                  "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition group",
+                  isActive
+                    ? "bg-blue-100 text-blue-700"
+                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-700",
+                ].join(" ")}
+              >
+                <span
+                  className={[
+                    "text-xl",
+                    isActive
+                      ? "text-blue-700"
+                      : "text-blue-600 group-hover:text-blue-700",
+                  ].join(" ")}
+                >
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </aside>
       {/* Toggle button */}
