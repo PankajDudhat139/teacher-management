@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import PaymentTabs from "./PaymentTabs";
 import PaymentForm from "./PaymentForm";
+import { PaymentData } from '@/types/payment';
 
 interface PaymentDialogProps {
   isOpen: boolean;
@@ -26,11 +27,11 @@ export default function PaymentDialog({
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handlePayment = async (paymentData: any) => {
+  const handlePayment = async (paymentData: PaymentData) => {
     setError(null);
     setSuccess(false);
     setLoading(true);
-
+    console.log("Processing payment with data:", paymentData, onPaymentSuccess);
     // Simulate payment processing
     setTimeout(() => {
       setLoading(false);

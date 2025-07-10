@@ -1,4 +1,13 @@
-export const validateTeacherForm = (data: any) => {
+interface TeacherFormData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  subject?: string;
+  role?: string;
+  birthDate?: string;
+}
+
+export const validateTeacherForm = (data: TeacherFormData) => {
   const errors: Record<string, string> = {}
 
   if (!data.name || data.name.trim().split(' ').length < 2) {

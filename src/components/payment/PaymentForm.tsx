@@ -3,12 +3,18 @@ import { useState } from "react";
 import UpiPaymentForm from "./UpiPaymentForm";
 import CardPaymentForm from "./CardPaymentForm";
 import WalletPaymentForm from "./WalletPaymentForm";
+import type {
+  UpiPayment,
+  CardPayment,
+  WalletPayment,
+  PaymentData,
+} from "@/types/payment";
 
 interface PaymentFormProps {
   activeTab: string;
   amount: number;
   loading: boolean;
-  onPayment: (data: any) => void;
+  onPayment: (data: PaymentData) => void;
   onError: (error: string) => void;
 }
 
@@ -20,9 +26,9 @@ export default function PaymentForm({
   onError,
 }: PaymentFormProps) {
   const [formData, setFormData] = useState({
-    upi: { id: "" },
-    card: { number: "", name: "", expiry: "", cvv: "" },
-    wallet: { provider: "", mobile: "" },
+    upi: { id: "" } as UpiPayment,
+    card: { number: "", name: "", expiry: "", cvv: "" } as CardPayment,
+    wallet: { provider: "", mobile: "" } as WalletPayment,
   });
 
   const validateAndPay = () => {
@@ -59,7 +65,10 @@ export default function PaymentForm({
     onPayment(formData[activeTab as keyof typeof formData]);
   };
 
-  const updateFormData = (tab: string, data: any) => {
+  const updateFormData = <T extends keyof typeof formData>(
+    tab: T,
+    data: (typeof formData)[T]
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [tab]: data,

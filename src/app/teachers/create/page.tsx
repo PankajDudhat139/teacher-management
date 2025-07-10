@@ -39,6 +39,7 @@ export default function CreateTeacherPage() {
     const current = stored ? JSON.parse(stored) : [];
     const updated = [...current, newTeacher];
     localStorage.setItem("teachers", JSON.stringify(updated));
+    console.log(setLoading);
 
     toast.success("Teacher created!");
     router.push("/teachers");
